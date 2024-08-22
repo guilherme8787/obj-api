@@ -3,6 +3,7 @@
 namespace App\Services\Accounts;
 
 use App\Exceptions\AccountNotFoundException;
+use App\Http\Resources\AccountResource;
 use App\Repositories\Conta\ContaRepositoryContract;
 use App\Services\Accounts\Contracts\AccountServiceContract;
 
@@ -20,7 +21,7 @@ class AccountService implements AccountServiceContract
     /**
      * @throws AccountNotFoundException
      */
-    public function get(array $data): array
+    public function get(array $data): AccountResource
     {
         $accountNumber = data_get($data, 'numero_conta');
 
@@ -30,9 +31,6 @@ class AccountService implements AccountServiceContract
             throw new AccountNotFoundException('Conta não encontrada');
         }
 
-        return [
-            'numero_conta' => $accountStatus->numero_conta,
-            'saldo' => $accountStatus->saldo
-        ];
+        return new AccountResource($accountStatus);
     }
 }
