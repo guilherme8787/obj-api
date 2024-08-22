@@ -8,4 +8,5 @@ interface ContaRepositoryContract
 {
     public function findByAccountNumber(int $accountNumber): ?Conta;
     public function updateBalance(int $accountNumber, float $value): bool;
+    public function create(array $data): Conta;
 }

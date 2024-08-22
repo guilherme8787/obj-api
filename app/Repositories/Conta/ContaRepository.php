@@ -24,4 +24,9 @@ class ContaRepository implements ContaRepositoryContract
             'saldo' => $value,
         ]);
     }
+
+    public function create(array $data): Conta
+    {
+        return $this->conta->create($data);
+    }
 }
