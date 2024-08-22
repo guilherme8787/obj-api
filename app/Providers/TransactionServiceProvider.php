@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Transactions;
+namespace App\Providers;
 
 use App\Services\Transactions\Contracts\TransactionServiceContract;
 use App\Services\Transactions\TransactionService;
