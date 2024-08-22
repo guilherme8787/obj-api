@@ -1,16 +1,37 @@
 version: "3"
+
 services:
+  app:
+    build: .
+    volumes:
+      - ./:/var/www/html
+      - ./.env.example:/var/www/html/.env
+    environment:
+      - PHP_OPCACHE_VALIDATE_TIMESTAMPS=0
+      - PHP_OPCACHE_MAX_ACCELERATED_FILES=10000
+      - PHP_OPCACHE_MEMORY_CONSUMPTION=192
+      - PHP_OPCACHE_INTERNED_STRINGS_BUFFER=16
+    ports:
+      - "9000:9000"
+    networks:
+      default:
+        ipv4_address: 172.20.0.80
+    depends_on:
+      - db
+      - redis
+
   db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: laravel
     networks:
       default:
         ipv4_address: 172.20.0.81
     volumes:
-      - ./data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
   adminer:
     image: adminer
