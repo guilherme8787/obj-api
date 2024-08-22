@@ -16,6 +16,9 @@ class TransactionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var int
+     */
     private const TEST_ACCOUNT_NUMBER = 12345;
 
     protected function setUp(): void

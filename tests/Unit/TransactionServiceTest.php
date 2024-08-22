@@ -19,6 +19,9 @@ class TransactionServiceTest extends TestCase
     use WithFaker;
     use RefreshDatabase;
 
+    /**
+     * @var int
+     */
     private const TEST_ACCOUNT_NUMBER = 12345;
 
     protected $contaRepository;
