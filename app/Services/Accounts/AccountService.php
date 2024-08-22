@@ -4,10 +4,10 @@ namespace App\Services\Accounts;
 
 use App\Exceptions\AccountNotFoundException;
 use App\Http\Resources\AccountResource;
+use App\Models\Conta;
 use App\Repositories\Conta\ContaRepositoryContract;
 use App\Services\Accounts\Contracts\AccountServiceContract;
 use Illuminate\Support\Facades\Cache;
-use stdClass;
 
 class AccountService implements AccountServiceContract
 {
@@ -43,27 +43,32 @@ class AccountService implements AccountServiceContract
     {
         $accountNumber = data_get($data, 'numero_conta');
 
+        if (!$accountNumber) {
+            throw new AccountNotFoundException('Número da conta não informado');
+        }
+
         $balance = $this->getAccountBalanceFromCache($accountNumber);
 
         if ($balance) {
-            $account = new stdClass;
-            $account->numero_conta = $accountNumber;
-            $account->saldo = $account;
+            $account = [
+                'numero_conta' => $accountNumber,
+                'saldo' => $balance,
+            ];
 
-            return new AccountResource($account);
+            return new AccountResource((object) $account);
         }
 
         $accountStatus = $this->contaRepository->findByAccountNumber($accountNumber);
+
+        if (!$accountStatus) {
+            throw new AccountNotFoundException('Conta não encontrada');
+        }
 
         Cache::store('redis')->put(
             'account_balance_' . $accountStatus->numero_conta,
             $accountStatus->saldo,
             self::CACHE_TTL
         );
-
-        if (! $accountStatus) {
-            throw new AccountNotFoundException('Conta não encontrada');
-        }
 
         return new AccountResource($accountStatus);
     }

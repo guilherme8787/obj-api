@@ -22,6 +22,8 @@ class ShowAccountController extends Controller
 
         try {
             $account = $this->accountService->get($data);
+
+            return response()->json($account, Response::HTTP_OK);
         } catch (AccountNotFoundException $accountNotFound) {
             Log::info($accountNotFound->getMessage(), [
                 'data' => $data,
@@ -47,7 +49,5 @@ class ShowAccountController extends Controller
                 Response::HTTP_NOT_FOUND
             );
         }
-
-        return response()->json($account, Response::HTTP_OK);
     }
 }
