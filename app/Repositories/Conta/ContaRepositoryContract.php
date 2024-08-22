@@ -7,5 +7,5 @@ use App\Models\Conta;
 interface ContaRepositoryContract
 {
     public function findByAccountNumber(int $accountNumber): Conta;
-    public function updateSaldo(int $accountNumber, float $value): bool;
+    public function updateBalance(int $accountNumber, float $value): bool;
 }

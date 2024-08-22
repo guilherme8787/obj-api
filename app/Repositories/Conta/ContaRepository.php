@@ -18,7 +18,7 @@ class ContaRepository implements ContaRepositoryContract
         return $this->conta->where('numero_conta', $accountNumber)->first();
     }
 
-    public function updateSaldo(int $accountNumber, float $value): bool
+    public function updateBalance(int $accountNumber, float $value): bool
     {
         return $this->conta->where('numero_conta', $accountNumber)->update([
             'saldo' => $value,
