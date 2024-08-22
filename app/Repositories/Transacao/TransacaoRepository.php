@@ -13,7 +13,7 @@ class TransacaoRepository implements TransacaoRepositoryContract
         $this->transaction = $transaction;
     }
 
-    public function create(array $data): Transacao
+    public function create(array $data): ?Transacao
     {
         return $this->transaction->create($data);
     }

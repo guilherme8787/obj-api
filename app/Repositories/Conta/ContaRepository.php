@@ -13,7 +13,7 @@ class ContaRepository implements ContaRepositoryContract
         $this->conta = $conta;
     }
 
-    public function findByAccountNumber(int $accountNumber): Conta
+    public function findByAccountNumber(int $accountNumber): ?Conta
     {
         return $this->conta->where('numero_conta', $accountNumber)->first();
     }
