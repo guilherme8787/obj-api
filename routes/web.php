@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post(
+    '/transacao',
+    App\Http\Controllers\Api\Transactions\TransactionController::class
+)->name('transaction');
+
+
