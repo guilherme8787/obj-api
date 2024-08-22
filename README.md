@@ -8,7 +8,7 @@
 
 - [Documentação da API](https://documenter.getpostman.com/view/14359832/2sAXjDevkw)
 
-## Tambem tem o arquivo para exportação caso prefira
+## Tambem tem o arquivo para importar no Postman caso prefira
 
 - `./obj-test.postman_collection.json`
 
