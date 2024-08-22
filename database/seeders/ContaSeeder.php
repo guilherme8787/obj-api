@@ -13,6 +13,11 @@ class ContaSeeder extends Seeder
      */
     public function run(): void
     {
+        Conta::factory()->state([
+            'numero_conta' => 234,
+            'saldo' => 180.37,
+        ])->create();
+
         Conta::factory()->count(10)->create();
     }
 }

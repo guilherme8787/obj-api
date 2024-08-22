@@ -25,7 +25,7 @@ class ContaFactory extends Factory
         ];
     }
 
-    public function withAttributes(array $attributes = [])
+    public function withAttributes()
     {
         return $this->state(function (array $attributes) {
             return array_merge([
