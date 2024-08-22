@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::post(
     '/transacao',
-    App\Http\Controllers\Api\Transactions\TransactionController::class
+    App\Http\Controllers\Transactions\TransactionController::class
 )->name('transaction');
 
 
