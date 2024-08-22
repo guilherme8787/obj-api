@@ -1,0 +1,39 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      default:
+        ipv4_address: 172.20.0.81
+    volumes:
+      - ./data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      default:
+        ipv4_address: 172.20.0.82
+
+  redis:
+    image: redis
+    command: redis-server --requirepass 1234 --appendonly yes
+    hostname: redis
+    ports:
+      - "6379:6379"
+    networks:
+      default:
+        ipv4_address: 172.20.0.8
+
+# docker network create --subnet=172.20.0.0/16 php-obj-test
+
+networks:
+  default:
+    external:
+      name: php-obj-test
