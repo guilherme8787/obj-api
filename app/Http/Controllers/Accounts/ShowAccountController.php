@@ -18,7 +18,7 @@ class ShowAccountController extends Controller
 
     public function __invoke(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
         try {
             $account = $this->accountService->get($data);

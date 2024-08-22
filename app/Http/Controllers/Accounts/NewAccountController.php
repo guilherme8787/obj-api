@@ -20,7 +20,9 @@ class NewAccountController extends Controller
         $data = $request->validated();
 
         try {
-            $account = $this->accountService->create($data);
+            $this->accountService->create($data);
+
+            return response()->json($data, Response::HTTP_CREATED);
         } catch (Exception $exception) {
             Log::error($exception->getMessage(), [
                 'data' => $data,
@@ -33,7 +35,5 @@ class NewAccountController extends Controller
                 Response::HTTP_NOT_FOUND
             );
         }
-
-        return response()->json($account, Response::HTTP_CREATED);
     }
 }

@@ -23,4 +23,12 @@ Route::post(
     App\Http\Controllers\Transactions\TransactionController::class
 )->name('transaction');
 
+Route::post(
+    '/conta',
+    App\Http\Controllers\Accounts\NewAccountController::class
+)->name('account.store');
 
+Route::get(
+    '/conta',
+    App\Http\Controllers\Accounts\ShowAccountController::class
+)->name('account.get');

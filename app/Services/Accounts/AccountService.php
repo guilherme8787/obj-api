@@ -12,9 +12,9 @@ class AccountService implements AccountServiceContract
         private ContaRepositoryContract $contaRepository
     ) {}
 
-    public function create(array $data)
+    public function create(array $data): void
     {
-        return $this->contaRepository->create($data);
+        $this->contaRepository->create($data);
     }
 
     /**
@@ -30,6 +30,9 @@ class AccountService implements AccountServiceContract
             throw new AccountNotFoundException('Conta não encontrada');
         }
 
-        return $accountStatus->toArray();
+        return [
+            'numero_conta' => $accountStatus->numero_conta,
+            'saldo' => $accountStatus->saldo
+        ];
     }
 }
