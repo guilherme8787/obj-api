@@ -80,9 +80,9 @@ class TransactionControllerTest extends TestCase
             TransactionServiceContract::class,
             Mockery::mock(TransactionServiceContract::class, function (MockInterface $mock) use ($data) {
                 $mock->shouldReceive('handleTransaction')
-                ->once()
-                ->with($data)
-                ->andThrow(new InsufficientBalanceException('Saldo insuficiente'));
+                    ->once()
+                    ->with($data)
+                    ->andThrow(new InsufficientBalanceException('Saldo insuficiente'));
             })
         );
 
