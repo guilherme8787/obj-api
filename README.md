@@ -66,8 +66,6 @@ docker compose exec app composer install
 
 ### 6. (Extra) Execute os testes
 
-Se o composer install falhar durante o build, você pode executar manualmente dentro do contêiner:
-
 ```bash
 docker compose exec app php artisan test
 ```
