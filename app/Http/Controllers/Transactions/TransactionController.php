@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transactions;
 
+use App\Exceptions\AccountNotFoundException;
 use App\Exceptions\InsufficientBalanceException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
@@ -25,6 +26,19 @@ class TransactionController extends Controller
             $accountStatus = $this->transactionService->handleTransaction($data);
 
             return response()->json($accountStatus, Response::HTTP_CREATED);
+        } catch (AccountNotFoundException $accountNotFound) {
+            Log::info($accountNotFound->getMessage(), [
+                'data' => $data,
+                'exception' => $accountNotFound,
+                'code' => 'transaction_error_account_not_found'
+            ]);
+
+            return response()->json(
+                [
+                    'message' => $accountNotFound->getMessage()
+                ],
+                Response::HTTP_NOT_FOUND
+            );
         } catch (InsufficientBalanceException $insufficientBalance) {
             Log::info($insufficientBalance->getMessage(), [
                 'data' => $data,

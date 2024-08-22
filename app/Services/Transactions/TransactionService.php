@@ -3,6 +3,7 @@
 namespace App\Services\Transactions;
 
 use App\Enums\PaymentType;
+use App\Exceptions\AccountNotFoundException;
 use App\Exceptions\InsufficientBalanceException;
 use App\Repositories\Conta\ContaRepositoryContract;
 use App\Repositories\Transacao\TransacaoRepositoryContract;
@@ -44,6 +45,10 @@ class TransactionService implements TransactionServiceContract
     private function getAccountBalance(int $accountNumber): float
     {
         $accountStatus = $this->contaRepository->findByAccountNumber($accountNumber);
+
+        if (!$accountStatus) {
+            throw new AccountNotFoundException('Conta não encontrada');
+        }
 
         return $accountStatus?->saldo ? $accountStatus->saldo : 0;
     }
