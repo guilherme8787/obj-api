@@ -15,6 +15,11 @@ use Throwable;
 
 class TransactionService implements TransactionServiceContract
 {
+    /**
+     * @var int
+     */
+    private const CACHE_TTL = 60;
+
     public function __construct(
         private ContaRepositoryContract $contaRepository,
         private TransacaoRepositoryContract $transactionRepository
@@ -84,7 +89,12 @@ class TransactionService implements TransactionServiceContract
             $this->contaRepository->updateBalance($accountNumber, $newAccountBalance);
 
             Cache::forget('account_balance_' . $accountNumber);
-            Cache::store('redis')->put('account_balance_' . $accountNumber, $newAccountBalance, 60);
+
+            Cache::store('redis')->put(
+                'account_balance_' . $accountNumber,
+                $newAccountBalance,
+                self::CACHE_TTL
+            );
 
             DB::commit();
 

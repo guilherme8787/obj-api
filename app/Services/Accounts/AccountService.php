@@ -11,6 +11,11 @@ use stdClass;
 
 class AccountService implements AccountServiceContract
 {
+    /**
+     * @var int
+     */
+    private const CACHE_TTL = 60;
+
     public function __construct(
         private ContaRepositoryContract $contaRepository
     ) {}
@@ -27,7 +32,7 @@ class AccountService implements AccountServiceContract
         Cache::store('redis')->put(
             'account_balance_' . $account->numero_conta,
             $account->saldo,
-            60
+            self::CACHE_TTL
         );
     }
 
@@ -49,6 +54,12 @@ class AccountService implements AccountServiceContract
         }
 
         $accountStatus = $this->contaRepository->findByAccountNumber($accountNumber);
+
+        Cache::store('redis')->put(
+            'account_balance_' . $accountStatus->numero_conta,
+            $accountStatus->saldo,
+            self::CACHE_TTL
+        );
 
         if (! $accountStatus) {
             throw new AccountNotFoundException('Conta não encontrada');
