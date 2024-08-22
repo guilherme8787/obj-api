@@ -171,6 +171,7 @@ return [
         App\Providers\TransactionServiceProvider::class,
         App\Providers\ContaRepositoryProvider::class,
         App\Providers\TransacaoRepositoryProvider::class,
+        App\Providers\AccountServiceProvider::class,
     ])->toArray(),
 
     /*
