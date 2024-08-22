@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('transacoes', function (Blueprint $table) {
             $table->id();
             $table->integer('numero_conta');
-            $table->char('forma_pagamento', 1);
+            $table->text('forma_pagamento');
             $table->decimal('valor', 15, 2);
             $table->decimal('saldo_apos_transacao', 15, 2);
-            $table->timestamp('data_transacao')->useCurrent();
+            $table->timestamps();
             $table->foreign('numero_conta')->references('numero_conta')->on('contas')->onDelete('cascade');
         });
     }
