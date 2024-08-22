@@ -8,6 +8,15 @@ enum PaymentType: string
     case CARTAO_CREDITO = 'C';
     case CARTAO_DEBITO = 'D';
 
+    public function label(): string
+    {
+        return match($this) {
+            self::PIX => 'Pix',
+            self::CARTAO_CREDITO => 'Cartão de Crédito',
+            self::CARTAO_DEBITO => 'Cartão de Débito',
+        };
+    }
+
     public function calculateTax(float $value): float
     {
         return match($this) {
